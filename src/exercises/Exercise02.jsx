@@ -56,11 +56,17 @@ const GroupOfCounters = () => {
           decrementTotal = {decrementTotal}/>
         </div>
       ))}
-      <strong>Total: {total}</strong>
+      <Total total={total} />
       
     </div>
   );
 };
+
+const Total = ({total}) => {
+  return (
+    <strong>Total: {total}</strong>
+  )
+}
 
 /* THE FIX ENDS HERE */
 
