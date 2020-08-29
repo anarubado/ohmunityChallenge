@@ -14,33 +14,45 @@ const Welcome = () => {
   </div>
 }
 
+const NavLink = props => (
+  <Link
+    {...props}
+    getProps={({ isCurrent }) => {
+      return {
+        className: isCurrent ? "nav-link active" : "nav-link"
+      };
+    }}
+  />
+);
+
 const App = () => {
-  return <div className="container">
-    <h1 class="py-4">FrontEnd Interview Exercises</h1>
+  return (
+    <div className="container">
+      <Link to="/">
+        <h1 class="py-4">FrontEnd Interview Exercises</h1>
+      </Link>      
 
-    <ul className="nav nav-tabs">
-      <li className="nav-item">
-        <Link to="/" className="nav-link active">Homepage</Link>
-      </li>
-      <li className="nav-item">
-        <Link to="/exercise01" className="nav-link">Exercise 01</Link>
-      </li>
-      <li className="nav-item">
-        <Link to="/exercise02" className="nav-link">Exercise 02</Link>
-      </li>
-      <li className="nav-item">
-        <Link to="/exercise03" className="nav-link">Exercise 03</Link>
-      </li>
-    </ul>
+      <ul className="nav nav-tabs">
+        <li className="nav-item">
+          <NavLink to="/exercise01">Exercise 01</NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink to="/exercise02">Exercise 02</NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink to="/exercise03">Exercise 03</NavLink>        
+        </li>
+      </ul>
 
-    <Router className="mt-5 mb-5">
-      <Welcome path="/" default />
-      <Exercise01 path="/exercise01" />
-      <Exercise02 path="/exercise02" />
-      <Exercise03 path="/exercise03" />
-    </Router>
+      <Router className="mt-5 mb-5">
+        <Welcome path="/" default />
+        <Exercise01 path="/exercise01" />
+        <Exercise02 path="/exercise02" />
+        <Exercise03 path="/exercise03" />
+      </Router>
 
-  </div>
+    </div>  
+  )
 }
 
 export default App;

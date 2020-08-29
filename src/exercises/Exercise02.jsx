@@ -2,32 +2,62 @@ import React from 'react';
 
 /* THE FIX STARTS HERE */
 
-// state data for 3 counters
-const data = [
-  { id: 1, value: 0 },
-  { id: 2, value: 0 },
-  { id: 3, value: 0 },
-];
-
 // Counter Component
-const Counter = ({ value }) => {
+const Counter = ({ value, incrementTotal, decrementTotal }) => {
+
+  const [clics, setClics] = React.useState(value);
+
+  const onIncrement = () => {
+    incrementTotal();
+    setClics(clics + 1);
+  };
+
+  const onDecrement = () => {
+    decrementTotal();
+    setClics(clics - 1);
+  };
+
   return (
     <div className="d-flex my-2">
-      <strong>{value}</strong>
+      <strong>{clics}</strong>
       <div className="ml-2">
-        <button className="btn btn-danger mr-1">-</button>
-        <button className="btn btn-success">+</button>
+        <button className="btn btn-danger mr-1" onClick={onDecrement}>-</button>
+
+        <button className="btn btn-success" onClick={onIncrement}>+</button>
       </div>
     </div>
   );
 };
 
 const GroupOfCounters = () => {
+  const data = [
+    { id: 1, value: 0 },
+    { id: 2, value: 0 },
+    { id: 3, value: 0 },
+    { id: 4, value: 0 }
+  ];
+
+  const [total, setTotal] = React.useState(0);
+
+  const incrementTotal = () => {
+    setTotal(total + 1)
+  };
+
+  const decrementTotal = () => {
+    setTotal(total - 1)
+  };
+
   return (
     <div>
       {data.map((counter) => (
-        <Counter key={counter.id} value={counter.value} />
+        <div>
+          <Counter key={counter.id} value={counter.value} 
+          incrementTotal = {incrementTotal}
+          decrementTotal = {decrementTotal}/>
+        </div>
       ))}
+      <strong>Total: {total}</strong>
+      
     </div>
   );
 };
@@ -95,7 +125,6 @@ const Exercise02 = () => {
       </ol>
 
       <hr className="my-5" />
-
       <GroupOfCounters />
     </div>
   );

@@ -1,26 +1,24 @@
 import React from 'react';
 
-const TOTAL_USERS = 6
+const TOTAL_USERS = 6;
 
 const Exercise01 = () => {
-  const [users, setUsers] = React.useState([])
+  const [users, setUsers] = React.useState([]);
 
   /* THE FIX STARTS HERE */
 
   React.useEffect(() => {
-    for(var i = 1; i < TOTAL_USERS; i++) {
-      // We fetch the user
-      fetch('https://jsonplaceholder.typicode.com/users?id=' + i)
-        .then(r => r.json()) // converts response to obj
-        .then(user => user[0]) // maps [{..}] to {..} since the API provides an array
-        .then(user => {
-          setUsers([
-            ...users,
-            user
-          ])
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then(r => r.json())
+      .then(data => 
+        data.filter(function(user){
+          return user.id < TOTAL_USERS;
         })
-    }
-  }, [])
+      )
+      .then(data =>
+        setUsers(users => data)
+      ); 
+    }, []);
 
   /* THE FIX ENDS HERE */
 
