@@ -1,24 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 const TOTAL_USERS = 6;
 
 const Exercise01 = () => {
-  const [users, setUsers] = React.useState([]);
+  const [users, setUsers] = useState([]); // useState is a hook that returns the current state value and a function that lets you update it.
+  // The objective here is to change the initial state of users to another one where it has the users' data from the API.
 
   /* THE FIX STARTS HERE */
 
-  React.useEffect(() => {
+  useEffect(() => {
     fetch('https://jsonplaceholder.typicode.com/users')
       .then(r => r.json())
-      .then(data => 
-        data.filter(function(user){
-          return user.id < TOTAL_USERS;
-        })
-      )
-      .then(data =>
-        setUsers(users => data)
+      .then(data => {
+        let users = [];
+        for (let i = 0; i < TOTAL_USERS; i++) {
+          users = [...users, data[i]];         
+        }
+        return users;
+      })
+      .then(users =>
+        setUsers(users) // setUsers replaces the empty array with the data in the state variable, users.
       ); 
-    }, []);
+    }, []); // With useEffect we can mount the component with the pertinent data.
 
   /* THE FIX ENDS HERE */
 
