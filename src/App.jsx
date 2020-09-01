@@ -5,6 +5,8 @@ import Exercise01 from './exercises/Exercise01'
 import Exercise02 from './exercises/Exercise02'
 import Exercise03 from './exercises/Exercise03'
 
+import './App.css';
+
 const Welcome = () => {
   return <div>
     <h2>Welcome!</h2>
@@ -15,21 +17,22 @@ const Welcome = () => {
 }
 
 const NavLink = props => (
-  <Link
-    {...props}
-    getProps={({ isCurrent }) => {
+  <Link    
+    {...props}  // props contain NavLink's children and the prop "to".
+    getProps={({ isCurrent }) => {  // getProps is function with an object as a param. isCurrent will be true if the location.pathname is exactly the same as the anchor’s href.
       return {
-        className: isCurrent ? "nav-link active" : "nav-link"
+        className: isCurrent ? "nav-link active" : "nav-link" // getProps will get such for an underlying anchor element.
       };
     }}
   />
+  
 );
 
 const App = () => {
   return (
     <div className="container">
       <Link to="/">
-        <h1 class="py-4">FrontEnd Interview Exercises</h1>
+        <h1 className="py-4">FrontEnd Interview Exercises</h1>
       </Link>      
 
       <ul className="nav nav-tabs">
