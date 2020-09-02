@@ -2,32 +2,66 @@ import React from 'react';
 
 /* THE FIX STARTS HERE */
 
-// Counter Component
+// Counter Component copy
 const Counter = ({ value, incrementTotal, decrementTotal }) => {
 
   const [clics, setClics] = React.useState(value);
 
-  const onIncrement = () => {
-    incrementTotal();
-    setClics(clics + 1);
-  };
+  const onChange = (clics) => {
+    return{
+      increment: function(){
+        setClics(clics + 1);
+        incrementTotal();
+      },
 
-  const onDecrement = () => {
-    decrementTotal();
-    setClics(clics - 1);
-  };
+      decrement: function(){
+        setClics(clics - 1);
+        decrementTotal();
+      }
+    }
+  }
 
   return (
     <div className="d-flex my-2">
       <strong>{clics}</strong>
       <div className="ml-2">
-        <button className="btn btn-danger mr-1" onClick={onDecrement}>-</button>
+        <button className="btn btn-danger mr-1" onClick={onChange(clics).decrement}>-</button>
 
-        <button className="btn btn-success" onClick={onIncrement}>+</button>
+        <button className="btn btn-success" onClick={onChange(clics).increment}>+</button>
       </div>
     </div>
   );
 };
+
+// Counter Component
+
+// const Counter = ({ value, incrementTotal, decrementTotal }) => {
+
+//   const [clics, setClics] = React.useState(value);
+
+//   const onIncrement = () => {
+//     incrementTotal();
+//     setClics(clics + 1);
+//   };
+
+//   const onDecrement = () => {
+//     decrementTotal();
+//     setClics(clics - 1);
+//   };
+
+//   return (
+//     <div className="d-flex my-2">
+//       <strong>{clics}</strong>
+//       <div className="ml-2">
+//         <button className="btn btn-danger mr-1" onClick={onDecrement}>-</button>
+
+//         <button className="btn btn-success" onClick={onIncrement}>+</button>
+//       </div>
+//     </div>
+//   );
+// };
+
+// GroupOfCounters Component
 
 const GroupOfCounters = () => {
   const data = [
@@ -50,8 +84,8 @@ const GroupOfCounters = () => {
   return (
     <div>
       {data.map((counter) => (
-        <div>
-          <Counter key={counter.id} value={counter.value} 
+        <div key={counter.id}>
+          <Counter value={counter.value} 
           incrementTotal = {incrementTotal}
           decrementTotal = {decrementTotal}/>
         </div>
@@ -61,6 +95,8 @@ const GroupOfCounters = () => {
     </div>
   );
 };
+
+// Total Component
 
 const Total = ({total}) => {
   return (
