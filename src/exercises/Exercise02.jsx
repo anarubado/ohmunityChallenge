@@ -30,17 +30,17 @@ const GroupOfCounters = () => {
   const [total, setTotal] = React.useState(0);
 
   const incrementTotal = (amountToIncrement) => {
-    setTotal(total + amountToIncrement)
+    setTotal(total + amountToIncrement);
   };
 
   const decrementTotal = (amountToDecrement) => {
-    setTotal(total - amountToDecrement)
+    setTotal(total - amountToDecrement);
   }; 
 
   const onIncrement = (id, amountToIncrement) => {
     setData(
-      data.map((item) => 
-        item.id === id ? {...item, value: item.value + amountToIncrement} : item
+      data.map((counter) => 
+        counter.id === id ? {...counter, value: counter.value + amountToIncrement} : counter
       )
     )
     incrementTotal(amountToIncrement);
@@ -48,8 +48,8 @@ const GroupOfCounters = () => {
 
   const onDecrement = (id, amountToDecrement) => {
     setData(
-      data.map((item) => 
-        item.id === id ? {...item, value: item.value - amountToDecrement} : item
+      data.map((counter) => 
+        counter.id === id ? {...counter, value: counter.value - amountToDecrement} : counter
       )
     )
     decrementTotal(amountToDecrement);
