@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const TOTAL_USERS = 6;
+const TOTAL_USERS = 5;
 
 const Exercise01 = () => {
   const [users, setUsers] = useState([]); // useState is a hook that returns the current state value and a function that lets you update it.
@@ -12,16 +12,23 @@ const Exercise01 = () => {
     fetch('https://jsonplaceholder.typicode.com/users')
       .then(r => r.json())
       .then(data => {
+        let limit = data.length;
         let users = [];
-        for (let i = 0; i < TOTAL_USERS; i++) {
+
+        if(data.length > TOTAL_USERS){
+          limit = TOTAL_USERS;
+        }
+        
+        for (let i = 0; i < limit; i++) {
           users = [...users, data[i]];         
         }
-        return users;
+        return users;        
       })
       .then(users =>
         setUsers(users) // setUsers replaces the empty array with the data in the state variable, users.
       ); 
     }, []); // With useEffect we can mount the component with the pertinent data.
+
 
   /* THE FIX ENDS HERE */
 
