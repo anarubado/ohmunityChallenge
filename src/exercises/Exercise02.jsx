@@ -3,15 +3,15 @@ import React from 'react';
 /* THE FIX STARTS HERE */
 
 // Counter Component
-const Counter = ({ value, incrementTotal, decrementTotal, onIncrement, onDecrement, id}) => {
+const Counter = ({ value, onIncrement, onDecrement, id}) => {
 
   return (
     <div className="d-flex my-2">
       <strong>{value}</strong>
       <div className="ml-2">
-        <button className="btn btn-danger mr-1" onClick={() => {onDecrement(id); decrementTotal()}}>-</button>
+        <button className="btn btn-danger mr-1" onClick={() => {onDecrement(id, 1);}}>-</button>
 
-        <button className="btn btn-success" onClick={() => {onIncrement(id); incrementTotal();}}>+</button>
+        <button className="btn btn-success" onClick={() => {onIncrement(id, 1);}}>+</button>
       </div>
     </div>
   );
@@ -27,39 +27,39 @@ const GroupOfCounters = () => {
     { id: 4, value: 0 }
   ]);
 
-  const onIncrement = (id) => {
-    setData(
-      data.map((item) => 
-        item.id === id ? {...item, value: item.value + 1} : item
-      )
-    )
-  }
-
-  const onDecrement = (id) => {
-    setData(
-      data.map((item) => 
-        item.id === id ? {...item, value: item.value - 1} : item
-      )
-    )
-  }
-
   const [total, setTotal] = React.useState(0);
 
-  const incrementTotal = () => {
-    setTotal(total + 1)
+  const incrementTotal = (amountToIncrement) => {
+    setTotal(total + amountToIncrement)
   };
 
-  const decrementTotal = () => {
-    setTotal(total - 1)
-  };  
+  const decrementTotal = (amountToDecrement) => {
+    setTotal(total - amountToDecrement)
+  }; 
+
+  const onIncrement = (id, amountToIncrement) => {
+    setData(
+      data.map((item) => 
+        item.id === id ? {...item, value: item.value + amountToIncrement} : item
+      )
+    )
+    incrementTotal(amountToIncrement);
+  }
+
+  const onDecrement = (id, amountToDecrement) => {
+    setData(
+      data.map((item) => 
+        item.id === id ? {...item, value: item.value - amountToDecrement} : item
+      )
+    )
+    decrementTotal(amountToDecrement);
+  }  
 
   return (
     <div>
       {data.map((counter) => (
         <div key={counter.id}>
           <Counter value={counter.value} 
-          incrementTotal = {incrementTotal}
-          decrementTotal = {decrementTotal}
           onIncrement = {onIncrement}
           onDecrement = {onDecrement}
           id = {counter.id}/>
